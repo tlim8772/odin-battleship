@@ -1,5 +1,5 @@
 export class Ship {
-    constructor(len, pos = [-1, -1], dir = [-1, -1]) {
+    constructor(len, pos = null, dir = null) {
         this.len = len;
         this.hitTimes = 0;
         this.pos = pos;

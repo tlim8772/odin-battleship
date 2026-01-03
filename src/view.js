@@ -83,5 +83,5 @@ function gameEnd() {
     return false;
 }
 
-initPlayerBoard();
-initComputerBoard();
+//initPlayerBoard();
+//initComputerBoard();

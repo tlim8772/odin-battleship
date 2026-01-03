@@ -18,7 +18,7 @@ export class GameBoardPlace {
     canPlace(ship, dir, pos) {
         for (let i = 0; i < ship.len; i++) {
             let npos = [pos[0] + i * dir[0], pos[1] + i * dir[1]];
-            if (!validPos(...npos) || this.board[npos[0]][npos[1]] || this.isAdjacent(npos)) return false;
+            if (!validPos(...npos) || this.board[npos[0]][npos[1]]) return false;
         }
         return true;
     }
@@ -33,6 +33,23 @@ export class GameBoardPlace {
         for (let i = 0; i < ship.len; i++) {
             let npos = [pos[0] + i * dir[0], pos[1] + i * dir[1]];
             this.board[npos[0]][npos[1]] = ship;
+        }
+    }
+
+    existShip(ship) {
+        if (ship.pos == null || ship.dir == null) return false;
+        for (let i = 0; i < ship.len; i++) {
+            let npos = [ship.pos[0] + i * ship.dir[0], ship.pos[1] + i * ship.dir[1]];
+            if (!validPos(...npos) || this.board[npos[0]][npos[1]] != ship) return false;
+        }
+        return true;
+    }
+
+    removeShip(ship) {
+        if (!this.existShip(ship)) throw new Error('ship does not exist');
+        for (let i = 0; i < ship.len; i++) {
+            let npos = [ship.pos[0] + i * ship.dir[0], ship.pos[1] + i * ship.dir[1]];
+            this.board[npos[0]][npos[1]] = null;
         }
     }
 
