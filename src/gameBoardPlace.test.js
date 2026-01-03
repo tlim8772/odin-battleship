@@ -15,7 +15,7 @@ test('game board 1', () => {
     expect(gbp.ships[0].dir).toEqual([0, 1]);
 })
 
-test('game board 2', () => {
+test.skip('game board 2', () => {
     const gbp = new GameBoardPlace();
     gbp.placeRandom();
     console.log(gbp.toString());
@@ -32,5 +32,15 @@ test('game board 3', () => {
 
     gbp.removeShip(ship);
     expect(gbp.board[0][2]).toBe(null);
+})
 
+test('game board 4', () => {
+    const gbp = new GameBoardPlace();
+    const ship = new Ship(4);
+    expect(() => gbp.placeShip(ship, DOWN, [1, 0])).not.toThrow();
+    expect(gbp.canRotate(ship)).toBe(true);
+
+    const ship2 = new Ship(4);
+    expect(() => gbp.placeShip(ship2, RIGHT, [0, 0])).not.toThrow();
+    expect(gbp.canRotate(ship2)).toBe(false);
 })

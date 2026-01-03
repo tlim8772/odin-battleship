@@ -1,4 +1,4 @@
-import { R, C, RIGHT, DOWN, validPos, DIRS, fromPos, toPos } from './gameBoard.js';
+import { R, C, RIGHT, DOWN, validPos, DIRS, toggleDir } from './gameBoard.js';
 import { Ship } from './ship.js';
 
 export class GameBoardPlace {
@@ -15,12 +15,20 @@ export class GameBoardPlace {
         return false;
     }
 
+    // we can overlap with our own ship (that we have placed)
     canPlace(ship, dir, pos) {
         for (let i = 0; i < ship.len; i++) {
             let npos = [pos[0] + i * dir[0], pos[1] + i * dir[1]];
-            if (!validPos(...npos) || this.board[npos[0]][npos[1]]) return false;
+            if (!validPos(...npos) || (this.board[npos[0]][npos[1]] != null && this.board[npos[0]][npos[1]] != ship)) return false;
         }
         return true;
+    }
+
+    // ship must be placed in the board and have dir and pos
+    canRotate(ship) {
+        if (ship.dir == null || ship.pos == null) throw new Error('ship not in board');
+        const dir = toggleDir(ship.dir);
+        return this.canPlace(ship, dir, ship.pos);
     }
 
     placeShip(ship, dir, pos) {
@@ -56,6 +64,7 @@ export class GameBoardPlace {
     placeRandom() {
         const shipLens = [4,3,3,2,2,2,1,1,1,1];
         shipLens.forEach(len => {
+            // dont insert the ship into the board first, so canPlace will run correctly
             const ship = new Ship(len);
             while (1) {
                 let pos = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];

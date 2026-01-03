@@ -16,6 +16,10 @@ export function toPos(i) {
     return [Math.floor(i / 10), i % 10];
 }
 
+export function toggleDir(dir) {
+    return dir == RIGHT ? DOWN :RIGHT;
+}
+
 class Cell {
     constructor() {
         this.ship = null;

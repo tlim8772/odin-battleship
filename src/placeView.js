@@ -1,6 +1,8 @@
 import { Ship } from './ship.js';
 import  { GameBoardPlace } from './gameBoardPlace.js';
 import {
+    carrierHorizontal,
+    carrierVertical,
     cruiserHorizontal,
     cruiserVertical,
     destroyerHorizontal,
@@ -18,7 +20,7 @@ let gbp = new GameBoardPlace();
 
 function getShipElem(len, dir) {
     if (len == 4) {
-        return (dir == RIGHT) ? cruiserHorizontal : cruiserVertical;
+        return (dir == RIGHT) ? carrierHorizontal : carrierVertical;
     } else if (len == 3) {
         return (dir == RIGHT) ? destroyerHorizontal : destroyerVertical;
     } else if (len == 2) {
@@ -80,9 +82,13 @@ function makeCell(hasShip, pos) {
 
         clearCanPlace(shipToMove.len, shipToMove.dir, pos);
         clearHasShip(shipToMove.len, shipToMove.dir, shipToMove.pos);
+        
         gbp.removeShip(shipToMove);
         gbp.placeShip(shipToMove, shipToMove.dir, pos);
+        
         addHasShip(shipToMove.len, shipToMove.dir, pos);
+        
+        shipToMove = null;
     }) 
 
     cell.addEventListener('dragenter', () => {
