@@ -11,6 +11,10 @@ export function fromPos(r, c) {
     return r * C + c;
 }
 
+export function toPos(i) {
+    return [Math.floor(i / 10), i % 10];
+}
+
 class Cell {
     constructor() {
         this.ship = null;
@@ -30,10 +34,20 @@ export class GameBoard {
         this.ships = [];
     }
 
+    // cannot place ships side by side
+    isAdjacentToShip(pos) {
+        const dirs = [[-1,0], [0,1], [1,0], [0,-1]];
+        for (const d of dirs) {
+            let r = pos[0] + d[0], c = pos[1] + d[1];
+            if (validPos(r, c) && this.board[r][c].ship) return true;
+        }
+        return false;
+    }
+
     canPlace(ship, dir, pos) {
         for (let i = 0; i < ship.len; i++) {
             let r = pos[0] + i * dir[0], c = pos[1] + i * dir[1];
-            if (!validPos(r, c) || this.board[r][c].ship) return false;
+            if (!validPos(r, c) || this.board[r][c].ship || this.isAdjacentToShip([r, c])) return false;
         }
         return true;
     }

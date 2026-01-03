@@ -6,6 +6,7 @@ const title = document.querySelector('.game-run-title');
 const playerBoard = document.querySelector('.player-1 .gameboard');
 const computerBoard = document.querySelector('.player-2 .gameboard');
 
+let win = false;
 let player = new HumanPlayer(), comp = new ComputerPlayer();
 
 function makeComputerCell(hasShip, pos) {
@@ -17,6 +18,8 @@ function makeComputerCell(hasShip, pos) {
         if (comp.gameBoard.canHit(pos)) {
             comp.gameBoard.receiveAttack(pos);
             cell.classList.add('hit');
+            if (gameEnd()) return;
+            
             computerAttack();
         }
     })
@@ -44,6 +47,8 @@ function computerAttack() {
     }
 
     cell.classList.add('hit');
+
+    if (gameEnd()) return;
 }
 
 function initPlayerBoard() {
@@ -66,6 +71,19 @@ function initComputerBoard() {
             computerBoard.append(cell);
         }
     }
+}
+
+function gameEnd() {
+    if (player.gameBoard.allShipsSunk()) {
+        win = true;
+        title.textContent = 'Computer wins';
+        return true;
+    } else if (comp.gameBoard.allShipsSunk()) {
+        win = true;
+        title.textContent = 'Player wins'
+        return true;
+    }
+    return false;
 }
 
 initPlayerBoard();

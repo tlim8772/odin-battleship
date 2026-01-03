@@ -1,4 +1,4 @@
-const { GameBoard, fromPos, R, C } = require("./gameBoard");
+const { GameBoard, fromPos, toPos, R, C } = require("./gameBoard");
 
 export class ComputerPlayer {
     constructor() {
@@ -12,11 +12,10 @@ export class ComputerPlayer {
     }
 
     getAttackPos() {
-        while (1) {
-            let pos = [Math.floor(Math.random() * R), Math.floor(Math.random() * C)];
-            if (!this.canAttackPos(pos)) continue;
-            return pos;
-        }
+        const alreadyHit = this.misses.union(this.hits);
+        const left = Array(R * C).fill(0).map((v, i) => i).filter(v => !alreadyHit.has(v));
+        const i = Math.floor(Math.random() * left.length);
+        return toPos(left[i]);
     }
 
     addMiss(pos) {
