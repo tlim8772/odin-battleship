@@ -1,0 +1,65 @@
+import { R, C, RIGHT, DOWN, validPos, DIRS, fromPos, toPos } from './gameBoard.js';
+import { Ship } from './ship.js';
+
+export class GameBoardPlace {
+    constructor() {
+        this.board = Array(R).fill(0).map(() => Array(C).fill(null));
+        this.ships = [];
+    }
+
+    isAdjacent(pos) {
+        for (const d of DIRS) {
+            let npos = [pos[0] + d[0], pos[1] + d[1]];
+            if (validPos(...npos) && this.board[npos[0]][npos[1]]) return true;
+        }
+        return false;
+    }
+
+    canPlace(ship, dir, pos) {
+        for (let i = 0; i < ship.len; i++) {
+            let npos = [pos[0] + i * dir[0], pos[1] + i * dir[1]];
+            if (!validPos(...npos) || this.board[npos[0]][npos[1]] || this.isAdjacent(npos)) return false;
+        }
+        return true;
+    }
+
+    placeShip(ship, dir, pos) {
+        if (!this.canPlace(ship, dir, pos)) throw new Error('cannot place ship here');
+        
+        ship.pos = pos;
+        ship.dir = dir;
+        this.ships.push(ship);
+        
+        for (let i = 0; i < ship.len; i++) {
+            let npos = [pos[0] + i * dir[0], pos[1] + i * dir[1]];
+            this.board[npos[0]][npos[1]] = ship;
+        }
+    }
+
+    placeRandom() {
+        const shipLens = [4,3,3,2,2,2,1,1,1,1];
+        shipLens.forEach(len => {
+            const ship = new Ship(len);
+            while (1) {
+                let pos = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+                let dir = (Math.floor(Math.random() * 2)) ? DOWN : RIGHT;
+                if (!this.canPlace(ship, dir, pos)) continue;
+                this.placeShip(ship, dir, pos);
+                break;
+            }
+        })
+    }
+
+    toString() {
+        let s = '';
+        for (let r = 0; r < R; r++) {
+            for (let c = 0; c < C; c++) {
+                s += this.board[r][c]?.len ?? 0;
+            }
+            s += '\n';
+        }
+        return s;
+    }
+
+
+}

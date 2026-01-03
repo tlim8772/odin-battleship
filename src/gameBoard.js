@@ -2,8 +2,9 @@ import { Ship } from "./ship.js";
 
 export const R = 10, C = 10;
 export const RIGHT = [0, 1], DOWN = [1, 0];
+export const DIRS = [[-1,0], [0,1], [1,0], [0,-1]]
 
-function validPos(r, c) {
+export function validPos(r, c) {
     return r >= 0 && r < R && c >= 0 && c < C;
 }
 
@@ -36,8 +37,7 @@ export class GameBoard {
 
     // cannot place ships side by side
     isAdjacentToShip(pos) {
-        const dirs = [[-1,0], [0,1], [1,0], [0,-1]];
-        for (const d of dirs) {
+        for (const d of DIRS) {
             let r = pos[0] + d[0], c = pos[1] + d[1];
             if (validPos(r, c) && this.board[r][c].ship) return true;
         }
