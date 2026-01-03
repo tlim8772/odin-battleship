@@ -1,10 +1,7 @@
 import { R, C, fromPos } from './gameBoard.js';
 
 const { HumanPlayer, ComputerPlayer } = require("./player");
-
-const title = document.querySelector('.game-run-title');
-const playerBoard = document.querySelector('.player-1 .gameboard');
-const computerBoard = document.querySelector('.player-2 .gameboard');
+import { title, playerBoard, computerBoard } from './htmlElements.js';
 
 let win = false;
 let player = new HumanPlayer(), comp = new ComputerPlayer();

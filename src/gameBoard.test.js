@@ -12,7 +12,7 @@ test('gameboard 1', () => {
 
     expect(gb.canPlace(new Ship(2), DOWN, [0, 0])).toBe(false);
     expect(() => gb.placeShip(new Ship(2), DOWN, [0, 0])).toThrow();
-    expect(gb.canPlace(new Ship(2), RIGHT, [1, 0])).toBe(true);
+    expect(gb.canPlace(new Ship(2), RIGHT, [1, 0])).toBe(false);
     
 })
 

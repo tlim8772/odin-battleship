@@ -59,3 +59,8 @@
 .player-2 .cell.has-ship.hit {
     background-color: lightcoral;
 }
+
+.game-place {
+    height: 100vh;
+    width: 100vw;
+}
