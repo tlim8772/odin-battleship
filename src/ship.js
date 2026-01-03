@@ -6,6 +6,7 @@ export class Ship {
 
     hit() {
         this.hitTimes = Math.min(this.hitTimes + 1, this.len);
+        return true;
     }
 
     isSunk() {

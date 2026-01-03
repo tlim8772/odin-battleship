@@ -1,10 +1,14 @@
 import { Ship } from "./ship.js";
 
-const R = 10, C = 10;
+export const R = 10, C = 10;
 export const RIGHT = [0, 1], DOWN = [1, 0];
 
 function validPos(r, c) {
     return r >= 0 && r < R && c >= 0 && c < C;
+}
+
+export function fromPos(r, c) {
+    return r * C + c;
 }
 
 class Cell {
@@ -13,16 +17,10 @@ class Cell {
         this.isAttacked = false;
     }
 
-    isHit() {
-        return this.ship && this.isAttacked;
-    }
-
-    isMissed() {
-        return !this.ship && this.isAttacked;
-    }
-
-    isEmpty() {
-        return !this.isAttacked;
+    // return true if a ship is hit, else false
+    hit() {
+        this.isAttacked = true;
+        return this.ship?.hit() ?? false;
     }
 }
 
@@ -40,6 +38,10 @@ export class GameBoard {
         return true;
     }
 
+    canHit(pos) {
+        return !this.board[pos[0]][pos[1]].isAttacked;
+    }
+
     placeShip(ship, dir, pos) {
         if (!this.canPlace(ship, dir, pos)) throw new Error('invalid placement');
         this.ships.push(ship);
@@ -49,8 +51,9 @@ export class GameBoard {
         }
     }
 
+    // return true if a ship is hit, else false
     receiveAttack(pos) {
-        this.board[pos[0]][pos[1]].ship?.hit();
+        return this.board[pos[0]][pos[1]].hit();
     }
 
     allShipsSunk() {

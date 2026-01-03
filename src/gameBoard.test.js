@@ -16,8 +16,19 @@ test('gameboard 1', () => {
     
 })
 
-test.only('gameboard 2', () => {
+test('gameboard 2', () => {
     const gb = new GameBoard();
     gb.placeRandom();
     console.log(gb.toString());
+})
+    
+test('gameboard 3', () => {
+    const gb = new GameBoard();
+    gb.placeShip(new Ship(2), RIGHT, [0, 0]);
+    expect(gb.canHit([0, 0])).toBe(true);
+    expect(gb.receiveAttack([0, 0])).toBe(true);
+    expect(gb.canHit([0, 0])).toBe(false);
+    
+    expect(gb.receiveAttack([9, 9])).toBe(false);
+    expect(gb.canHit([9, 9])).toBe(false);
 })
