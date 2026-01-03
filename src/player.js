@@ -4,7 +4,7 @@ export class ComputerPlayer {
     constructor() {
         this.misses = new Set();
         this.hits = new Set();
-        this.board = new GameBoard();
+        this.gameBoard = new GameBoard();
     }
 
     canAttackPos(pos) {
@@ -32,7 +32,7 @@ export class HumanPlayer {
     constructor() {
         this.misses = new Set();
         this.hits = new Set();
-        this.board = new GameBoard();
+        this.gameBoard = new GameBoard();
     }
 
     canAttackPos(pos) {

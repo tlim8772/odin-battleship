@@ -1,0 +1,61 @@
+.game-run {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-run-title {
+    background-color: rgb(230, 230, 230);
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 16px;
+}
+
+.game-area {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    
+}
+
+.game-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(10, 32px);
+    grid-template-columns: repeat(10, 32px);
+    gap: 4px;
+}
+
+.cell {
+    border: 0.3px solid black;
+    height: 32px;
+    width: 32px;
+}
+
+.player-1 .cell.has-ship {
+    background-color: lightblue;
+}
+
+.player-1 .cell.hit {
+    background-color: grey;
+}
+
+.player-1 .cell.has-ship.hit {
+    background-color: lightcoral;
+}
+
+.player-2 .cell.hit {
+    background-color: grey;
+}
+
+.player-2 .cell.has-ship.hit {
+    background-color: lightcoral;
+}
