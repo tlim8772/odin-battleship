@@ -12,7 +12,7 @@ import {
     body,
     gamePlace
 } from './htmlElements.js';
-import { RIGHT, toPos, fromPos, R, C } from './gameBoard.js';
+import { RIGHT, toPos, fromPos, R, C, toggleDir } from './gameBoard.js';
 
 
 let shipToMove = null;
@@ -99,6 +99,17 @@ function makeCell(hasShip, pos) {
     cell.addEventListener('dragleave', () => {
         if (shipToMove == null || !gbp.canPlace(shipToMove, shipToMove.dir, pos)) return;
         clearCanPlace(shipToMove.len, shipToMove.dir, pos);
+    })
+
+    cell.addEventListener('click', () => {
+        const ship = gbp.board[pos[0]][pos[1]];
+        if (ship == null || !gbp.canRotate(ship)) return;
+
+        const npos = ship.pos, ndir = toggleDir(ship.dir);
+        clearHasShip(ship.len, ship.dir, ship.pos);
+        gbp.removeShip(ship);
+        gbp.placeShip(ship, ndir, npos);
+        addHasShip(ship.len, ship.dir, ship.pos);
     })
 
     return cell;
