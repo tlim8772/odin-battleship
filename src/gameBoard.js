@@ -50,7 +50,11 @@ export class GameBoard {
     canPlace(ship, dir, pos) {
         for (let i = 0; i < ship.len; i++) {
             let r = pos[0] + i * dir[0], c = pos[1] + i * dir[1];
-            if (!validPos(r, c) || this.board[r][c].ship != null) return false;
+            if (!validPos(r, c) || this.board[r][c].ship != null) {
+                console.log(ship);
+                if (validPos(r, c)) console.log(this.board[r][c].ship);
+                return false;
+            }
         }
         return true;
     }
@@ -101,5 +105,15 @@ export class GameBoard {
                 break;
             }
         })
+    }
+
+    resetBoard() {
+        this.ships.length = 0;
+        for (let r = 0; r < R; r++) {
+            for (const cell of this.board[r]) {
+                cell.ship = null;
+                cell.isAttacked = false;
+            }
+        }
     }
 }

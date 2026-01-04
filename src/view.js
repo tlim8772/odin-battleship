@@ -49,6 +49,9 @@ function computerAttack() {
 }
 
 export function initPlayerBoard(ships) {
+    playerBoard.innerHTML = '';
+    player.gameBoard.resetBoard();
+    
     ships.forEach(ship => player.gameBoard.placeShip(ship, ship.dir, ship.pos));
     for (let r = 0; r < R; r++) {
         for (let c = 0; c < C; c++) {
@@ -60,6 +63,9 @@ export function initPlayerBoard(ships) {
 }
 
 export function initComputerBoard() {
+    computerBoard.innerHTML = '';
+    comp.gameBoard.resetBoard();
+    
     comp.gameBoard.placeRandom();
     for (let r = 0; r < R; r++) {
         for (let c = 0; c < C; c++) {

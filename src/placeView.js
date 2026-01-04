@@ -12,10 +12,14 @@ import {
     body,
     gamePlace,
     gameRun,
-    finishGamePlaceButton
+    finishGamePlaceButton,
+    resetButton
 } from './htmlElements.js';
 import { RIGHT, toPos, fromPos, R, C, toggleDir } from './gameBoard.js';
 import { initComputerBoard, initPlayerBoard } from './view.js';
+
+finishGamePlaceButton.addEventListener('click', finishGamePlaceButtonFunc);
+resetButton.addEventListener('click', initGameBoardPlace);
 
 
 let shipToMove = null;
@@ -125,6 +129,9 @@ function finishGamePlaceButtonFunc() {
 }
 
 function initGameBoardPlace() {
+    gameBoardPlace.innerHTML = '';
+    
+    gbp.resetBoard();
     gbp.placeRandom();
     const cells = [];
     for (let r = 0; r < R; r++) {
@@ -134,8 +141,6 @@ function initGameBoardPlace() {
         }
     }
     gameBoardPlace.append(...cells);
-
-    finishGamePlaceButton.addEventListener('click', finishGamePlaceButtonFunc);
 
     body.innerHTML = '';
     body.append(gamePlace);

@@ -6,6 +6,13 @@
     align-items: center;
 }
 
+.game-run-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
 .game-run-title {
     background-color: rgb(230, 230, 230);
     font-size: 20px;

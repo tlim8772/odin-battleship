@@ -89,5 +89,14 @@ export class GameBoardPlace {
         return s;
     }
 
+    resetBoard() {
+        this.ships.length = 0;
+        for (let r = 0; r < R; r++) {
+            for (let c = 0; c < C; c++) {
+                this.board[r][c] = null;
+            }
+        }
+    }
+
 
 }
