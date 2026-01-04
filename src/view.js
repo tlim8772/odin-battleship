@@ -55,6 +55,7 @@ export function resetGameRun() {
     player.reset();
     comp.reset();
     
+    title.textContent = 'Battleship';
     playerBoard.innerHTML = '';
     computerBoard.innerHTML = '';
 }
