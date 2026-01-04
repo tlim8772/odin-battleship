@@ -12,6 +12,8 @@ function makeComputerCell(hasShip, pos) {
     if (hasShip) cell.classList.add('has-ship');
     
     cell.addEventListener('click', () => {
+        if (win) return;
+        
         if (comp.gameBoard.canHit(pos)) {
             comp.gameBoard.receiveAttack(pos);
             cell.classList.add('hit');
