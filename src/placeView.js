@@ -76,7 +76,6 @@ function makeCell(hasShip, pos) {
         
         shipToMove = ship;
         const shipElem = getShipElem(ship.len, ship.dir);
-        console.log(shipElem);
         ev.dataTransfer.setDragImage(shipElem, 16, 16);
     })
 
@@ -88,7 +87,7 @@ function makeCell(hasShip, pos) {
         
         gbp.removeShip(shipToMove);
         gbp.placeShip(shipToMove, shipToMove.dir, pos);
-        
+        console.log(shipToMove);
         addHasShip(shipToMove.len, shipToMove.dir, pos);
         
         shipToMove = null;

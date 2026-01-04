@@ -39,11 +39,10 @@ export class GameBoard {
         this.ships = [];
     }
 
-    // cannot place ships side by side
     isAdjacentToShip(pos) {
         for (const d of DIRS) {
             let r = pos[0] + d[0], c = pos[1] + d[1];
-            if (validPos(r, c) && this.board[r][c].ship) return true;
+            if (validPos(r, c) && this.board[r][c].ship != null) return true;
         }
         return false;
     }
@@ -51,7 +50,7 @@ export class GameBoard {
     canPlace(ship, dir, pos) {
         for (let i = 0; i < ship.len; i++) {
             let r = pos[0] + i * dir[0], c = pos[1] + i * dir[1];
-            if (!validPos(r, c) || this.board[r][c].ship) return false;
+            if (!validPos(r, c) || this.board[r][c].ship != null) return false;
         }
         return true;
     }

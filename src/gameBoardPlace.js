@@ -55,6 +55,8 @@ export class GameBoardPlace {
 
     removeShip(ship) {
         if (!this.existShip(ship)) throw new Error('ship does not exist');
+        const idx = this.ships.findIndex(s => s == ship);
+        this.ships.splice(idx, 1);
         for (let i = 0; i < ship.len; i++) {
             let npos = [ship.pos[0] + i * ship.dir[0], ship.pos[1] + i * ship.dir[1]];
             this.board[npos[0]][npos[1]] = null;
