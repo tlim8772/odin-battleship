@@ -14,4 +14,5 @@ export const destroyerHorizontal = document.querySelector('.destroyer-horizontal
 export const cruiserVertical = document.querySelector('.cruiser-vertical');
 export const cruiserHorizontal = document.querySelector('.cruiser-horizontal');
 export const skipper = document.querySelector('.skipper');
+export const finishGamePlaceButton = document.querySelector('.finish-game-place');
 

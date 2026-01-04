@@ -44,3 +44,11 @@ test('game board 4', () => {
     expect(() => gbp.placeShip(ship2, RIGHT, [0, 0])).not.toThrow();
     expect(gbp.canRotate(ship2)).toBe(false);
 })
+
+test('game board 5', () => {
+    const gbp = new GameBoardPlace();
+    const ship = new Ship(4);
+    expect(() => gbp.placeShip(ship, RIGHT, [0, 0])).not.toThrow();
+    expect(gbp.ships[0].dir).toEqual(RIGHT);
+    expect(gbp.ships[0].pos).toEqual([0, 0]);
+})

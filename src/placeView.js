@@ -10,9 +10,12 @@ import {
     gameBoardPlace,
     skipper,
     body,
-    gamePlace
+    gamePlace,
+    gameRun,
+    finishGamePlaceButton
 } from './htmlElements.js';
 import { RIGHT, toPos, fromPos, R, C, toggleDir } from './gameBoard.js';
+import { initComputerBoard, initPlayerBoard } from './view.js';
 
 
 let shipToMove = null;
@@ -115,6 +118,13 @@ function makeCell(hasShip, pos) {
     return cell;
 }
 
+function finishGamePlaceButtonFunc() {
+    body.innerHTML = '';
+    body.append(gameRun);
+    initPlayerBoard(gbp.ships);
+    initComputerBoard();
+}
+
 function initGameBoardPlace() {
     gbp.placeRandom();
     const cells = [];
@@ -125,6 +135,8 @@ function initGameBoardPlace() {
         }
     }
     gameBoardPlace.append(...cells);
+
+    finishGamePlaceButton.addEventListener('click', finishGamePlaceButtonFunc);
 
     body.innerHTML = '';
     body.append(gamePlace);

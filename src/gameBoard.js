@@ -51,7 +51,7 @@ export class GameBoard {
     canPlace(ship, dir, pos) {
         for (let i = 0; i < ship.len; i++) {
             let r = pos[0] + i * dir[0], c = pos[1] + i * dir[1];
-            if (!validPos(r, c) || this.board[r][c].ship || this.isAdjacentToShip([r, c])) return false;
+            if (!validPos(r, c) || this.board[r][c].ship) return false;
         }
         return true;
     }
