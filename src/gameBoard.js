@@ -74,6 +74,7 @@ export class GameBoard {
 
     // return true if a ship is hit, else false
     receiveAttack(pos) {
+        console.log(pos);
         return this.board[pos[0]][pos[1]].hit();
     }
 

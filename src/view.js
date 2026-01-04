@@ -50,14 +50,20 @@ function computerAttack() {
     if (gameEnd()) return;
 }
 
-export function initPlayerBoard(ships) {
-    playerBoard.innerHTML = '';
-    player.gameBoard.resetBoard();
+export function resetGameRun() {
+    win = false;
+    player.reset();
+    comp.reset();
     
+    playerBoard.innerHTML = '';
+    computerBoard.innerHTML = '';
+}
+
+export function initPlayerBoard(ships) {
     ships.forEach(ship => player.gameBoard.placeShip(ship, ship.dir, ship.pos));
     for (let r = 0; r < R; r++) {
         for (let c = 0; c < C; c++) {
-            const hasShip = player.gameBoard.board[r][c].ship;
+            const hasShip = player.gameBoard.board[r][c].ship != null;
             const cell = makePlayerCell(hasShip);
             playerBoard.append(cell);
         }
@@ -65,9 +71,6 @@ export function initPlayerBoard(ships) {
 }
 
 export function initComputerBoard() {
-    computerBoard.innerHTML = '';
-    comp.gameBoard.resetBoard();
-    
     comp.gameBoard.placeRandom();
     for (let r = 0; r < R; r++) {
         for (let c = 0; c < C; c++) {

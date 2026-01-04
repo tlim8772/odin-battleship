@@ -25,6 +25,12 @@ export class ComputerPlayer {
     addHit(pos) {
         this.hits.add(fromPos(...pos));
     }
+
+    reset() {
+        this.misses.clear();
+        this.hits.clear();
+        this.gameBoard.resetBoard();
+    }
 }
 
 export class HumanPlayer {
@@ -44,5 +50,11 @@ export class HumanPlayer {
 
     addHit(pos) {
         this.hits.add(fromPos(...pos));
+    }
+
+    reset() {
+        this.misses.clear();
+        this.hits.clear();
+        this.gameBoard.resetBoard();
     }
 }
